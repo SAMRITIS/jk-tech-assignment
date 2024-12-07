@@ -1,0 +1,23 @@
+version: '3'
+services:
+  node:
+    image: 'node:20'
+    user: 'node'
+    working_dir: /home/node/app
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./:/home/node/app
+    ports:
+      - 4500:4500
+    command: 'tail -F anything'
+
+  pgsql:
+    ports:
+      - 5432:$DATABASE_PORT
+    environment:
+      POSTGRES_PASSWORD: $DATABASE_PASSWORD
+      POSTGRES_USER: $DATABASE_USER
+      POSTGRES_DB: $DATABASE_NAME
+    volumes:
+      - .:/app
